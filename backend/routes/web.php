@@ -3,6 +3,8 @@
 use App\Http\Controllers\EntidadesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlanesLicenciaController;
+use App\Http\Controllers\UsuariosController;
+
 
 Route::get('/', function () {
     return redirect()->route('superadmin.planes.index');
@@ -32,7 +34,16 @@ Route::prefix('superadmin')->name('superadmin.')->group(function () {
     Route::put('/institutions/{id}', [EntidadesController::class, 'update'])->name('institutions.update');
     Route::delete('/institutions/{id}', [EntidadesController::class, 'destroy'])->name('institutions.destroy');
 
-
     Route::get('/planes_user', [PlanesLicenciaController::class, 'userPlanes'])->name('planes_user.index');
+
+    Route::prefix('usuarios')->name('usuarios.')->group(function () {
+
+    Route::get('/create', [UsuariosController::class, 'create'])
+        ->name('create');
+
+    Route::post('/', [UsuariosController::class, 'store'])
+        ->name('store');
+
+});
 });
 
